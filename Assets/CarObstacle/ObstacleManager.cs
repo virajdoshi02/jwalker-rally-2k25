@@ -69,7 +69,7 @@ public class RallyController
 
         Debug.DrawRay(CarRB.position, launchDir, Color.white);
 
-        if (BeginDist < 5f)
+        if (BeginDist < 2.5f)
         {
             CurrentTargetIdx++;
             Debug.Log("Switch");
@@ -77,6 +77,8 @@ public class RallyController
             {
                 return;
             }
+            CarRB.velocity = CarRB.velocity / 3;
+
         }
 
         //Vector3 forward = RallyCar.transform.forward;
