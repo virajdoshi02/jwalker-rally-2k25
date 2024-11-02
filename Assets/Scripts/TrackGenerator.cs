@@ -6,6 +6,11 @@ public class TrackGenerator : MonoBehaviour
 {
     [SerializeField]
     private GameObject sphere;
+    public List<Vector3> targets;
+    public void IncrementTrack()
+    {
+
+    }
 
     // Start is called before the first frame update
     private void Start() {

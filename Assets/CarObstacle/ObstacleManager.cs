@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Given a list of points and player position, spawn a car
+
+
 public class ObstacleManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -10,20 +13,53 @@ public class ObstacleManager : MonoBehaviour
 
     RallyController RC_Controller;
 
-    void Start()
+    /*
+     * SpawnDeathCars()
+     * {
+     *  GameObject Death
+       }
+     */
+    public void PositionCar(Vector3 pos)
+    {
+        if (RallyCar == null) return;
+        RallyCar.transform.position = pos;
+    }
+
+    // this is for in-editor stuff
+    public void InitializeFromObjects(GameObject[] targets)
     {
         List<Vector3> posTargets = new List<Vector3>();
-        foreach (GameObject target in Targets)
+        foreach (GameObject target in targets)
         {
             posTargets.Add(target.transform.position);
         }
 
-        RC_Controller = new RallyController(RallyCar, posTargets.ToArray(), false);
+        InitializeRC(posTargets.ToArray());
+    }
+
+    public void InitializeRC(Vector3[] targets)
+    {
+        if (targets == null)
+        {
+            return;
+        }
+
+        RC_Controller = new RallyController(RallyCar, targets, false);
+    }
+
+    void Start()
+    {
+        InitializeFromObjects(Targets);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (RC_Controller == null)
+        {
+            return;
+        }
+
         RC_Controller.LaunchCar();
     }
 }
