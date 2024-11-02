@@ -69,7 +69,7 @@ public class RallyController
 
         Debug.DrawRay(CarRB.position, launchDir, Color.white);
 
-        if (BeginDist < 2.5f)
+        if (BeginDist < 4.5f)
         {
             CurrentTargetIdx++;
             Debug.Log("Switch");
@@ -80,7 +80,7 @@ public class RallyController
         float angleToTarget = Vector3.SignedAngle(forward, launchDir, Vector3.up);
         angleToTarget *= Mathf.PI / 180.0f;
 
-        CarRB.AddTorque(cross * angleToTarget * SteeringPower * 4.0f);
+        CarRB.AddTorque(cross * angleToTarget * SteeringPower);
         CarRB.AddForce(RallyCar.transform.forward * AdditionalThrust);
     }
 }
