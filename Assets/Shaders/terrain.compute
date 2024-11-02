@@ -3,7 +3,7 @@
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
-RWTexture2D<float4> Result;
+RWTexture2D<float> Result;
 float2 Offset;
 float Scale;
 
@@ -28,7 +28,7 @@ float unity_gradientNoise(float2 p)
     return lerp(lerp(d00, d01, fp.y), lerp(d10, d11, fp.y), fp.x);
 }
 
-[numthreads(16,16,1)]
+[numthreads(8,8,1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
     float2 pos = ((float2(id.x, id.y) + Offset) / 1024.0) * Scale;

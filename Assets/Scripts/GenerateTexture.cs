@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class GenerateTexture : MonoBehaviour
@@ -26,7 +25,7 @@ public class GenerateTexture : MonoBehaviour
         computeShader.SetFloat("Scale", 10);
         computeShader.SetTexture(handle, "Result", heightMap);
 
-        computeShader.Dispatch(handle, textureSize / 16, textureSize / 16, 1);
+        computeShader.Dispatch(handle, textureSize / 8, textureSize / 8, 1);
 
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = heightMap;
     }
@@ -34,6 +33,6 @@ public class GenerateTexture : MonoBehaviour
     private void Update() {
         offset.x += Time.deltaTime * 100f;
         computeShader.SetVector("Offset", offset);
-        computeShader.Dispatch(handle, textureSize / 16, textureSize / 16, 1);
+        computeShader.Dispatch(handle, textureSize / 8, textureSize / 8, 1);
     }
 }
