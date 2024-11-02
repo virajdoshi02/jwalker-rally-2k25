@@ -34,8 +34,8 @@ public class RallyController
     Rigidbody CarRB;
     Vector3[] Targets;
     int CurrentTargetIdx = 0;
-    float AdditionalThrust = 4.0f;
-    float SteeringPower = 1.0f;
+    float AdditionalThrust = 7000.0f;
+    float SteeringPower = 8000.0f;
 
     public RallyController(GameObject car, Vector3[] Targets, bool DynamicParams)
     {
@@ -49,8 +49,6 @@ public class RallyController
             AdditionalThrust = Random.Range(4.0f, 8.0f);
             SteeringPower = Random.Range(4.0f, 8.0f);
         }
-
-        LaunchCar();
     }
 
     float DistanceToTarget(Vector3 target)
@@ -69,18 +67,20 @@ public class RallyController
         Vector3 launchDir = Vector3.Normalize(carToBegin);
         float BeginDist = carToBegin.magnitude;
 
-        Debug.DrawRay(CarRB.position, launchDir);
+        Debug.DrawRay(CarRB.position, launchDir, Color.white);
 
-        if (BeginDist < 2.0f)
+        if (BeginDist < 2.5f)
         {
             CurrentTargetIdx++;
+            Debug.Log("Switch");
         }
 
         Vector3 forward = RallyCar.transform.forward;
         Vector3 cross = Vector3.Cross(forward, launchDir);
         float angleToTarget = Vector3.SignedAngle(forward, launchDir, Vector3.up);
+        angleToTarget *= Mathf.PI / 180.0f;
 
-        CarRB.AddTorque(cross * angleToTarget * SteeringPower);
+        CarRB.AddTorque(cross * angleToTarget * SteeringPower * 4.0f);
         CarRB.AddForce(RallyCar.transform.forward * AdditionalThrust);
     }
 }
