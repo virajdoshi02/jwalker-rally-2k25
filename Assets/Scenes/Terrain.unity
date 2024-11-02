@@ -273,7 +273,6 @@ GameObject:
   - component: {fileID: 521983970}
   - component: {fileID: 521983969}
   - component: {fileID: 521983973}
-  - component: {fileID: 521983974}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -383,20 +382,6 @@ MonoBehaviour:
   computeShader: {fileID: 7200000, guid: 04c16e2714d176b459a2a9f3c04fc66d, type: 3}
   heightMap: {fileID: 8400000, guid: 6614f464054de0a43ad45db07020509a, type: 2}
   textureSize: 512
---- !u!114 &521983974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 521983968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 972528504789c7a46a2d23139b291453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heightMap: {fileID: 8400000, guid: 6614f464054de0a43ad45db07020509a, type: 2}
-  terrainShader: {fileID: 7200000, guid: 2b7611b0249f18f4ea84c3ba77fb5095, type: 3}
 --- !u!1 &1222865583
 GameObject:
   m_ObjectHideFlags: 0

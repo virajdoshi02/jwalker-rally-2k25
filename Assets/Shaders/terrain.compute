@@ -1,11 +1,17 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CSMain
 
-// Create a RenderTexture with enableRandomWrite flag and set it
-// with cs.SetTexture
-RWTexture2D<float> Result;
+struct VertexData
+{
+    float3 position;
+    float3 normal;
+    float2 uv;
+};
+
 float2 Offset;
 float Scale;
+
+RWStructuredBuffer<VertexData> verticesBuffer;
 
 float2 unity_gradientNoise_dir(float2 p)
 {
@@ -16,7 +22,7 @@ float2 unity_gradientNoise_dir(float2 p)
     return normalize(float2(x - floor(x + 0.5), abs(x) - 0.5));
 }
 
-float unity_gradientNoise(float2 p)
+float Perlin(float2 p)
 {
     float2 ip = floor(p);
     float2 fp = frac(p);
@@ -32,5 +38,13 @@ float unity_gradientNoise(float2 p)
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
     float2 pos = ((float2(id.x, id.y) + Offset) / 1024.0) * Scale;
-    Result[id.xy] = unity_gradientNoise(pos);
+    float noise = Perlin(pos);
+
+    VertexData v;
+    v.position = float3(0, noise, 0);
+    v.normal = float3(0, 1, 0);
+    v.uv = float2(id.x / 511, id.y / 511);
+
+    int idx = (id.y * 511) + id.x;
+    verticesBuffer[idx] = v;
 }
