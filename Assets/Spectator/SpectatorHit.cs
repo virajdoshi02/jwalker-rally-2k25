@@ -21,6 +21,7 @@ public class SpectatorHit : MonoBehaviour
             // fly to space bruh
             Smacked = true;
             Rigidbody rb = this.GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.None;
 
             if (rb)
             {
