@@ -22,7 +22,7 @@ public class ObstacleManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RC_Controller.LaunchCar();
     }
@@ -34,8 +34,8 @@ public class RallyController
     Rigidbody CarRB;
     Vector3[] Targets;
     int CurrentTargetIdx = 0;
-    float AdditionalThrust = 7000.0f;
-    float SteeringPower = 8000.0f;
+    float AdditionalThrust = 2000000;
+    float SteeringPower = 200000.0f;
 
     public RallyController(GameObject car, Vector3[] Targets, bool DynamicParams)
     {
@@ -69,18 +69,29 @@ public class RallyController
 
         Debug.DrawRay(CarRB.position, launchDir, Color.white);
 
-        if (BeginDist < 4.5f)
+        if (BeginDist < 5f)
         {
             CurrentTargetIdx++;
             Debug.Log("Switch");
+            if (CurrentTargetIdx >= Targets.Length)
+            {
+                return;
+            }
         }
 
-        Vector3 forward = RallyCar.transform.forward;
-        Vector3 cross = Vector3.Cross(forward, launchDir);
-        float angleToTarget = Vector3.SignedAngle(forward, launchDir, Vector3.up);
-        angleToTarget *= Mathf.PI / 180.0f;
+        //Vector3 forward = RallyCar.transform.forward;
+        //Vector3 cross = Vector3.Cross(forward, launchDir);
+        //float angleToTarget = Vector3.SignedAngle(forward, launchDir, Vector3.up);
+        //angleToTarget *= Mathf.PI / 180.0f;
 
-        CarRB.AddTorque(cross * angleToTarget * SteeringPower);
-        CarRB.AddForce(RallyCar.transform.forward * AdditionalThrust);
+        //CarRB.AddTorque(cross * angleToTarget  * SteeringPower *4 * Time.fixedDeltaTime);
+        //RallyCar.transform.LookAt(Targets[CurrentTargetIdx]);
+
+        Vector3 target = Targets[CurrentTargetIdx];
+        var rotation = Quaternion.LookRotation(target - RallyCar.transform.position);
+        //rotation.x = 0; 
+        //rotation.z = 0; 
+        RallyCar.transform.rotation = Quaternion.Slerp(RallyCar.transform.rotation, rotation, Time.fixedDeltaTime * 10);
+        CarRB.AddForce(RallyCar.transform.forward * AdditionalThrust*Time.fixedDeltaTime);
     }
 }
