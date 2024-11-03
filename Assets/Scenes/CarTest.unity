@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 528409405}
   - component: {fileID: 528409404}
   m_Layer: 0
-  m_Name: HitSfx
+  m_Name: SfxSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2101,7 +2101,7 @@ GameObject:
   - component: {fileID: 1049439275}
   - component: {fileID: 1049439274}
   m_Layer: 0
-  m_Name: Hit
+  m_Name: MusicSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2895,7 +2895,7 @@ Terrain:
   m_GameObject: {fileID: 1166286787}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: b2fd2bb6893c9d74a93108a9bf6610d6, type: 2}
+  m_TerrainData: {fileID: 0}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
