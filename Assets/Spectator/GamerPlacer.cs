@@ -6,6 +6,14 @@ public class GamerPlacer : MonoBehaviour
 {
     public GameObject gamer;
 
+    Color[] colorPalette =
+    {
+        Color.blue,
+        Color.white,
+        Color.red,
+        Color.yellow
+    };
+
     private void Start()
     {
         PlaceGamers(true, (int)Random.Range(2.0f, 9.0f));
@@ -28,6 +36,8 @@ public class GamerPlacer : MonoBehaviour
                 float randX = Random.Range(-1.0f, 1.0f) * XYBounds.x;
                 float randZ = Random.Range(-1.0f, 1.0f) * XYBounds.y;
 
+                Color randomColor = new Color();
+
                 RaycastHit hit;
                 Vector3 rayOrigin = transform.position;
                 rayOrigin.x += randX;
@@ -43,6 +53,11 @@ public class GamerPlacer : MonoBehaviour
                     children[i] = Instantiate(gamer);
                     children[i].transform.position = rayOrigin;
                     children[i].transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+
+                    int colorPalettePick = Random.Range(0, 5);
+                    randomColor = colorPalette[colorPalettePick];
+
+                    children[i].transform.Find("man").GetComponent<MeshRenderer>().material.SetColor("_Color", randomColor);
                 }
             }
         }
