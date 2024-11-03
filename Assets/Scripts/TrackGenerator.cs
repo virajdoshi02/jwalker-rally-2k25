@@ -123,7 +123,7 @@ public class TrackGenerator : MonoBehaviour
         if (targets.Count > 0) lastPos = targets[targets.Count - 1];
 
         Vector3 newDir = -transform.right * 30.0f;
-        newDir.y += Random.Range(-10,10);
+        newDir.y += Random.Range(-1.0f,4.0f);
         Quaternion rotation = Quaternion.AngleAxis(Random.Range(-45.0f, 45.0f), transform.up);
         newDir = rotation * newDir;
 
