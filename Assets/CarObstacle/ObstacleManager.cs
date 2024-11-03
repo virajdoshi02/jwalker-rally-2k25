@@ -132,5 +132,6 @@ public class RallyController
         //rotation.z = 0; 
         RallyCar.transform.rotation = Quaternion.Slerp(RallyCar.transform.rotation, rotation, Time.fixedDeltaTime * 10);
         CarRB.AddForce(RallyCar.transform.forward * AdditionalThrust*Time.fixedDeltaTime);
+        CarRB.AddForce(-Vector3.Normalize(RallyCar.transform.position - RCC.I.Player.transform.position) * AdditionalThrust/8 *Time.fixedDeltaTime);
     }
 }
