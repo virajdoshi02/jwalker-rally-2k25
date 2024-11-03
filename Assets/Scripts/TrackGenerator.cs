@@ -11,6 +11,7 @@ public class TrackGenerator : MonoBehaviour
     public Material floorMat;
     private Mesh trackMesh;
     private Queue<GameObject> lastPlanes;
+
     private void GenerateTrack()
     {
         float trackWidth = 20.0f;
@@ -23,7 +24,7 @@ public class TrackGenerator : MonoBehaviour
         trackMesh = new Mesh();
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
-        List<Vector2> uvs = new List<Vector2>(); // don't really need UVs tbh
+        List<Vector2> uvs = new List<Vector2>();
 
         Vector3 origin = transform.position;
 
@@ -36,20 +37,24 @@ public class TrackGenerator : MonoBehaviour
             Vector3 forward = (nextPoint - currentPoint).normalized;
             Vector3 right = Vector3.Cross(Vector3.up, forward).normalized * trackWidth * 0.5f;
 
-            // Create vertices for the quad
+            // Create vertices for the quad centered on the points
             Vector3 v1 = currentPoint - right;
             Vector3 v2 = currentPoint + right;
             Vector3 v3 = nextPoint - right;
             Vector3 v4 = nextPoint + right;
 
-            // Add vertices to the list
-            vertices.Add(v1); // Bottom left
-            vertices.Add(v2); // Bottom right
-            vertices.Add(v3); // Top left
-            vertices.Add(v4); // Top right
+            // Add vertices to the list, avoiding duplicates at segment joints
+            if (i == 0)
+            {
+                // First segment, add all four vertices
+                vertices.Add(v1);
+                vertices.Add(v2);
+            }
+            vertices.Add(v3);
+            vertices.Add(v4);
 
             // Create triangles for the segment
-            int baseIndex = i * 4;
+            int baseIndex = i * 2;
             triangles.Add(baseIndex);
             triangles.Add(baseIndex + 2);
             triangles.Add(baseIndex + 1);
@@ -72,13 +77,7 @@ public class TrackGenerator : MonoBehaviour
         trackMesh.RecalculateNormals(); // Recalculate to ensure lighting works correctly
         trackMesh.RecalculateBounds();
 
-        for (int i = 0; i < targets.Count - 1; i++)
-        {
-            Debug.DrawLine(targets[i], targets[i + 1], Color.red, 90f); // Draws red lines for 10 seconds
-        }
-
         // Attach the mesh to a MeshFilter and MeshRenderer
-
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         if (meshFilter == null)
         {
@@ -86,7 +85,6 @@ public class TrackGenerator : MonoBehaviour
         }
         meshFilter.sharedMesh = trackMesh;
 
-        // Assign a material (make sure you have a material assigned in the inspector or set it via code)
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         if (meshRenderer == null)
         {
@@ -94,6 +92,7 @@ public class TrackGenerator : MonoBehaviour
         }
         meshRenderer.material = trackMat;
 
+        // Add a MeshCollider if needed
         MeshCollider meshCollider = GetComponent<MeshCollider>();
         if (meshCollider == null)
         {
@@ -101,6 +100,7 @@ public class TrackGenerator : MonoBehaviour
         }
         meshCollider.sharedMesh = trackMesh;
     }
+
 
     void SpawnPlaneBelowTrack()
     {
