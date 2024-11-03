@@ -2171,7 +2171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 2110130814}
   moveForce: 10000
-  jumpForce: 3000
+  jumpForce: 600
   mouseSensitivity: 300
   manMesh: {fileID: 539501885}
 --- !u!54 &1343001116

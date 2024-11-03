@@ -96,9 +96,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             rb.AddForce(transform.right * Time.deltaTime * moveForce, ForceMode.Impulse);
 
-        if (Vector3.Magnitude(rb.velocity) > maxSPeed)
-            rb.velocity = Vector3.Normalize(rb.velocity) * maxSPeed;
-
+        if (Vector3.Magnitude(rb.velocity-new Vector3(0,rb.velocity.y,0)) > maxSPeed)
+        {
+            float y = rb.velocity.y;
+            rb.velocity = Vector3.Normalize(new Vector3(rb.velocity.x,0,rb.velocity.z)) * maxSPeed;
+            rb.velocity = new Vector3(rb.velocity.x, y, rb.velocity.z);
+        }
 
         if (cursorLocked)
         {

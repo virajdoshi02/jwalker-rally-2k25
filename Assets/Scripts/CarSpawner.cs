@@ -18,7 +18,7 @@ public class CarSpawner : MonoBehaviour
 
         for (int i = 0; i < targetDepth; i++)
         {
-            targets[i] = RCC.I.track.targets[targetDepth - i - 1] + new Vector3(0.0f, DeathCar.transform.localScale.y / 2.0f, 0.0f);
+            targets[i] = RCC.I.track.targets[targetDepth - i - 1] + new Vector3(0.0f, DeathCar.transform.localScale.y, 0.0f);
 
             float randX = Random.Range(-1.0f, 1.0f);
             float randZ = Random.Range(-1.0f, 1.0f);
