@@ -8,7 +8,7 @@ public class GamerPlacer : MonoBehaviour
 
     private void Start()
     {
-        PlaceGamers(true, 9);
+        PlaceGamers(true, (int)Random.Range(2.0f, 9.0f));
     }
 
     void PlaceGamers(bool ProcedurallyPlaceGamers, int NumGamers)
