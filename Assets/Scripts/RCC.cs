@@ -11,6 +11,7 @@ public class RCC : MonoBehaviour
     private float distThreshold = 10.0f;
 
     bool start = false;
+    int terribleHack = 1;
 
     public void CheckPlayerTargetDelta()
     {
@@ -21,12 +22,20 @@ public class RCC : MonoBehaviour
         Vector3 currentTarget = I.track.targets[0];
         Vector3 playerPos = Player.transform.position; // TO DO: replace with the actual player position
         float distToTarget = (playerPos - currentTarget).magnitude;
-
+        
         if (distToTarget < distThreshold)
         {
             carSpawner.CarSpawn(5);
             track.IncrementTrack();
-            I.track.targets.RemoveAt(0); // pop
+            I.track.targets.RemoveAt(0);
+
+            if (terribleHack == 0)
+            {
+                Debug.Log("bye son");
+                I.track.PopPlane();
+            }
+
+            terribleHack = (terribleHack + 1) % 3;
         }
     }
 

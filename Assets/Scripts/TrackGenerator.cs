@@ -10,6 +10,7 @@ public class TrackGenerator : MonoBehaviour
     public Material trackMat;
     public Material floorMat;
     private Mesh trackMesh;
+    private Queue<GameObject> lastPlanes;
 
     private void GenerateTrack()
     {
@@ -110,11 +111,13 @@ public class TrackGenerator : MonoBehaviour
         plane.GetComponent<Renderer>().material = floorMat;
         plane.GetComponent<Renderer>().material.color = Color.gray; // Change color if needed
         plane.tag = "Ground";
+
+        lastPlanes.Enqueue(plane);
     }
 
     public void IncrementTrack()
     {
-        Debug.Log("up the track");
+        //Debug.Log("up the track");
         Vector3 lastPos = transform.position;
 
         if (targets.Count > 0) lastPos = targets[targets.Count - 1];
@@ -126,16 +129,22 @@ public class TrackGenerator : MonoBehaviour
         Vector3 nextPos = lastPos + newDir;
 
         targets.Add(nextPos);
-        //GameObject sphere = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), nextPos, Quaternion.identity);
-        //sphere.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
         GenerateTrack();
         SpawnPlaneBelowTrack();
     }
 
+    public void PopPlane()
+    {
+        GameObject lastPlane = lastPlanes.Dequeue();
+        Debug.Log(lastPlane.transform.position);
+        Destroy(lastPlane);
+    }
+
     // Start is called before the first frame update
     private void Start() {
         Debug.Log("pee");
+        lastPlanes = new Queue<GameObject>();
 
         for (var z = 0; z < 10; z++) {
             IncrementTrack();
