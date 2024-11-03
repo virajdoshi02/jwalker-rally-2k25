@@ -27,15 +27,11 @@ public class AudioClips : MonoBehaviour
 
     public AudioClip boop;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
+    private void Awake() {
+        if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
     }

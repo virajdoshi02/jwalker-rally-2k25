@@ -20,6 +20,8 @@ public class RCC : MonoBehaviour
     private int terribleHack = 1;
 
     public void CheckPlayerTargetDelta() {
+        if (Player == null) return;
+
         if (I.track.targets.Count == 0) return;
         if (!start) Player.transform.position = I.track.targets[0] + Vector3.up * 2.0f;
         if (!start) Audio.Instance.musicSource.PlayOneShot(AudioClips.Instance.inGameMusic);

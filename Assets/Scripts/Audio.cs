@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Audio : MonoBehaviour
 {
     public static Audio Instance { get; private set; }
@@ -9,15 +10,11 @@ public class Audio : MonoBehaviour
     public AudioSource sfxSource;
 
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
+    private void Awake() {
+        if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
     }
