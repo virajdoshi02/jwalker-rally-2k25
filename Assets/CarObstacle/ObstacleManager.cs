@@ -10,7 +10,6 @@ public class ObstacleManager : MonoBehaviour
     // Start is called before the first frame update
     public GameObject RallyCar;
     public GameObject[] Targets;
-
     private RallyController RC_Controller;
 
     /*
