@@ -11,10 +11,9 @@ public class TrackGenerator : MonoBehaviour
     public Material floorMat;
     private Mesh trackMesh;
     private Queue<GameObject> lastPlanes;
-
     private void GenerateTrack()
     {
-        float trackWidth = 10.0f;
+        float trackWidth = 20.0f;
 
         if (targets == null || targets.Count < 2)
         {
@@ -116,13 +115,15 @@ public class TrackGenerator : MonoBehaviour
     }
 
     public void IncrementTrack()
-    {
+    { 
+
         //Debug.Log("up the track");
         Vector3 lastPos = transform.position;
 
         if (targets.Count > 0) lastPos = targets[targets.Count - 1];
 
         Vector3 newDir = -transform.right * 30.0f;
+        newDir.y += Random.Range(-10,10);
         Quaternion rotation = Quaternion.AngleAxis(Random.Range(-45.0f, 45.0f), transform.up);
         newDir = rotation * newDir;
 
@@ -131,14 +132,14 @@ public class TrackGenerator : MonoBehaviour
         targets.Add(nextPos);
 
         GenerateTrack();
-        SpawnPlaneBelowTrack();
+        //SpawnPlaneBelowTrack();
     }
 
     public void PopPlane()
     {
-        GameObject lastPlane = lastPlanes.Dequeue();
-        Debug.Log(lastPlane.transform.position);
-        Destroy(lastPlane);
+        //GameObject lastPlane = lastPlanes.Dequeue();
+        //Debug.Log(lastPlane.transform.position);
+        //Destroy(lastPlane);
     }
 
     // Start is called before the first frame update

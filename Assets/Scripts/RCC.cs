@@ -19,7 +19,7 @@ public class RCC : MonoBehaviour
         if (!start) Player.transform.position = I.track.targets[0] + Vector3.up * 2.0f;
         start = true;
 
-        Vector3 currentTarget = I.track.targets[0];
+        Vector3 currentTarget = I.track.targets[2];
         Vector3 playerPos = Player.transform.position; // TO DO: replace with the actual player position
         float distToTarget = (playerPos - currentTarget).magnitude;
         
