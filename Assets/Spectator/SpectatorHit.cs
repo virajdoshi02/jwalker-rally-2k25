@@ -30,8 +30,8 @@ public class SpectatorHit : MonoBehaviour
                 rand.y = Random.Range(-1.0f, 1.0f);
                 rand.z = Random.Range(-1.0f, 1.0f);
 
-                rb.AddForce(v * (9.2f * spinPower));
-                rb.AddTorque(v + rand * 800.0f);
+                rb.AddForce(v * (9.2f * spinPower) * rb.mass/0.2f);
+                rb.AddTorque(v + rand * 800.0f * rb.mass / 0.2f);
             }
 
         }

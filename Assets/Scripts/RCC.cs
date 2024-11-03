@@ -7,8 +7,8 @@ public class RCC : MonoBehaviour
 
     public static RCC I { get; private set; }
 
-    private CarSpawner carSpawner;
-    private float distThreshold;
+    public CarSpawner carSpawner;
+    private float distThreshold = 0.75f;
 
     public void CheckPlayerTargetDelta()
     {
@@ -20,22 +20,17 @@ public class RCC : MonoBehaviour
 
         if (distToTarget < distThreshold)
         {
-            Debug.Log("Go on to the next one.");
             carSpawner.CarSpawn();
             I.track.targets.RemoveAt(0); // pop
             track.IncrementTrack();
         }
     }
 
-    public void JunkTempFunctionThatYouShouldRemove()
-    {
-        Player.transform.position += transform.right * Time.deltaTime * -3.0f;
-    }
 
     private void Awake() {
         if (I == null) {
             I = this;
-            carSpawner = new CarSpawner();
+            //carSpawner = new CarSpawner();
         }
         else {
             Destroy(gameObject);
@@ -45,6 +40,5 @@ public class RCC : MonoBehaviour
     private void Update()
     {
         CheckPlayerTargetDelta();
-        JunkTempFunctionThatYouShouldRemove();
     }
 }

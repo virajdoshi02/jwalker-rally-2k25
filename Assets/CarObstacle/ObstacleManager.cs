@@ -44,12 +44,12 @@ public class ObstacleManager : MonoBehaviour
             return;
         }
 
+        //Debug.Log(targets);
         RC_Controller = new RallyController(RallyCar, targets, false);
     }
 
     void Start()
     {
-        InitializeFromObjects(Targets);
     }
 
     // Update is called once per frame
