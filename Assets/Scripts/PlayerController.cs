@@ -13,18 +13,23 @@ public enum MoveKey
 public class PlayerController : MonoBehaviour
 {
 
-
+    RigidBody rb;
+    public Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<RigidBody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey("W"))
+        {
+            rb.addForce(cam.forward);
+        }
+        else if (Input.)
     }
 }
 
