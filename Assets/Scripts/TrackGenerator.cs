@@ -27,6 +27,7 @@ public class TrackGenerator : MonoBehaviour
         List<Vector2> uvs = new List<Vector2>();
 
         Vector3 origin = transform.position;
+        float currentUVY = 0.0f;
 
         for (int i = 0; i < targets.Count - 1; i++)
         {
@@ -63,11 +64,19 @@ public class TrackGenerator : MonoBehaviour
             triangles.Add(baseIndex + 2);
             triangles.Add(baseIndex + 3);
 
-            // Add UVs for basic texture mapping
-            uvs.Add(new Vector2(0, 0));
-            uvs.Add(new Vector2(1, 0));
-            uvs.Add(new Vector2(0, 1));
-            uvs.Add(new Vector2(1, 1));
+            float segmentLength = Vector3.Distance(currentPoint, nextPoint);
+            float uvIncrement = segmentLength / trackWidth; // Adjust UV scaling as needed
+
+            if (i == 0)
+            {
+                // First segment, initial UV mapping
+                uvs.Add(new Vector2(0, currentUVY));
+                uvs.Add(new Vector2(1, currentUVY));
+            }
+
+            currentUVY += uvIncrement;
+            uvs.Add(new Vector2(0, currentUVY));
+            uvs.Add(new Vector2(1, currentUVY));
         }
 
         // Assign vertices, triangles, and UVs to the mesh
