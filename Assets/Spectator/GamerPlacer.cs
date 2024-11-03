@@ -54,7 +54,7 @@ public class GamerPlacer : MonoBehaviour
                     children[i].transform.position = rayOrigin;
                     children[i].transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
-                    int colorPalettePick = Random.Range(0, 5);
+                    int colorPalettePick = Random.Range(0, 4);
                     randomColor = colorPalette[colorPalettePick];
 
                     children[i].transform.Find("man").GetComponent<MeshRenderer>().material.SetColor("_Color", randomColor);
