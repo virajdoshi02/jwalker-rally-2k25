@@ -27,7 +27,9 @@ public class CarSpawner : MonoBehaviour
             targets[i] += new Vector3(randX * randRange, 0.0f, randZ * randRange);
         }
 
-        Instantiate(CrowdSpawner, RCC.I.track.targets[targetDepth - targetDepth / 4] + Vector3.up * 10.0f, Quaternion.identity);
+        GameObject crowdSpwna = Instantiate(CrowdSpawner, 
+            RCC.I.track.targets[targetDepth - targetDepth / 4] + Vector3.up * 10.0f, Quaternion.identity);
+        Destroy(crowdSpwna, 10.0f);
 
         Debug.Log("post + " + RCC.I.track.targets.ToArray().Length);
 
