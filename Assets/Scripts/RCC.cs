@@ -1,4 +1,7 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RCC : MonoBehaviour
 {
@@ -61,5 +64,21 @@ public class RCC : MonoBehaviour
 
     public void LoseGame() {
         ui.PauseTimer();
+
+        ui.deathDistance.text = ui.distanceText.text;
+        ui.deathTime.text = ui.timeText.text;
+
+        ui.deathCanvas.gameObject.SetActive(true);
+        ui.infoCanvas.gameObject.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        StartCoroutine(ui.FadeRedDeath());
+        StartCoroutine(ui.AnimOuch());
+    }
+
+    public static void RestartGame() {
+        SceneManager.LoadScene("CarTest");
     }
 }
