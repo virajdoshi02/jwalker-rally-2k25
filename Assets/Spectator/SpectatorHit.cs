@@ -16,8 +16,6 @@ public class SpectatorHit : MonoBehaviour
 
         if (collision.gameObject.tag == "Car")
         {
-            Debug.Log("Oh my god, I've been hit.");
-
             // fly to space bruh
             Smacked = true;
             Rigidbody rb = this.GetComponent<Rigidbody>();
@@ -31,8 +29,6 @@ public class SpectatorHit : MonoBehaviour
                 rand.x = Random.Range(-1.0f, 1.0f);
                 rand.y = Random.Range(-1.0f, 1.0f);
                 rand.z = Random.Range(-1.0f, 1.0f);
-
-                Debug.Log(rand);
 
                 rb.AddForce(v * (9.2f * spinPower));
                 rb.AddTorque(v + rand * 800.0f);

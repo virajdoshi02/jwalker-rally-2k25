@@ -108,7 +108,7 @@ public class RallyController
         if (BeginDist < 4f)
         {
             CurrentTargetIdx++;
-            Debug.Log("Switch");
+
             if (CurrentTargetIdx >= Targets.Length)
             {
                 return;

@@ -35,7 +35,6 @@ public class GamerPlacer : MonoBehaviour
 
                 if (Physics.Raycast(rayOrigin, transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity))
                 {
-                    Debug.Log(hit.transform.gameObject.name);
                     Debug.DrawRay(rayOrigin, transform.TransformDirection(-Vector3.up) * hit.distance, Color.yellow);
 
                     float dy = -hit.distance;
