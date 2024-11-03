@@ -18,6 +18,7 @@ public class RCC : MonoBehaviour
 
     private bool start = false;
     private int terribleHack = 1;
+    private bool lost;
 
     public void CheckPlayerTargetDelta() {
         if (Player == null) return;
@@ -65,9 +66,21 @@ public class RCC : MonoBehaviour
 
     private void Update() {
         CheckPlayerTargetDelta();
+
+        if (lost) return;
+        if (Player.transform.position.y < -10) {
+            Player.GetComponent<PlayerController>().cursorLocked = false;
+            Player.GetComponent<PlayerController>().isPlaying = false;
+            LoseGame();
+        }
     }
 
     public void LoseGame() {
+        if (lost) return;
+        lost = true;
+
+        Audio.Instance.sfxSource.PlayOneShot(AudioClips.Instance.ouch);
+
         ui.PauseTimer();
 
         ui.deathDistance.text = ui.distanceText.text;
@@ -81,9 +94,5 @@ public class RCC : MonoBehaviour
 
         StartCoroutine(ui.FadeRedDeath());
         StartCoroutine(ui.AnimOuch());
-    }
-
-    public static void RestartGame() {
-        SceneManager.LoadScene("CarTest");
     }
 }

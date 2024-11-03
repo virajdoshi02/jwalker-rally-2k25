@@ -32,7 +32,6 @@ public class SpectatorHit : MonoBehaviour
 
             // Game over
             if (gameObject.CompareTag("Player")) {
-                Audio.Instance.sfxSource.PlayOneShot(AudioClips.Instance.ouch);
                 RCC.I.LoseGame();
             }
         }

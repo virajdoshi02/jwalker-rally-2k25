@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 3000f; // Force applied for jumping
     public float mouseSensitivity = 100;
     private float xRotation = 0f; // Keep track of the current X rotation
-    private bool cursorLocked = true; // Track whether the cursor is locked
+    public bool cursorLocked = true; // Track whether the cursor is locked
     private bool isGrounded = true; // Track if the player is on the ground
-    private bool isPlaying = true;
+    public bool isPlaying = true;
     public GameObject manMesh;
 
     private void Start() {
