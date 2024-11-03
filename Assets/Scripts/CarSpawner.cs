@@ -20,10 +20,11 @@ public class CarSpawner : MonoBehaviour
         {
             targets[i] = RCC.I.track.targets[targetDepth - i - 1] + new Vector3(0.0f, DeathCar.transform.localScale.y / 2.0f, 0.0f);
 
-            float randX = Random.Range(-5.0f, 5.0f);
-            float randZ = Random.Range(-5.0f, 5.0f);
+            float randX = Random.Range(-1.0f, 1.0f);
+            float randZ = Random.Range(-1.0f, 1.0f);
+            float randRange = 7.5f;
 
-            targets[i] += new Vector3(randX, 0.0f, randZ);
+            targets[i] += new Vector3(randX * randRange, 0.0f, randZ * randRange);
         }
 
         Instantiate(CrowdSpawner, RCC.I.track.targets[targetDepth - targetDepth / 4] + Vector3.up * 10.0f, Quaternion.identity);
