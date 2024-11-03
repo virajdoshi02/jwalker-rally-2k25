@@ -113,7 +113,7 @@ public class RallyController
             {
                 return;
             }
-            CarRB.velocity = CarRB.velocity * 1/Mathf.Sqrt(Vector3.Magnitude(CarRB.velocity));
+            CarRB.velocity = CarRB.velocity * 1.5f/Mathf.Sqrt(Vector3.Magnitude(CarRB.velocity));
 
         }
 
