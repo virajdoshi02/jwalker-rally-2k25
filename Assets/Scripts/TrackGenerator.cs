@@ -12,50 +12,47 @@ public class TrackGenerator : MonoBehaviour
     private Mesh trackMesh;
     private Queue<GameObject> lastPlanes;
 
-    private void GenerateTrack()
-    {
-        float trackWidth = 20.0f;
+    private void GenerateTrack() {
+        var trackWidth = 20.0f;
 
-        if (targets == null || targets.Count < 2)
-        {
+        if (targets == null || targets.Count < 2) {
             return;
         }
 
         trackMesh = new Mesh();
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-        List<Vector2> uvs = new List<Vector2>();
+        var vertices = new List<Vector3>();
+        var triangles = new List<int>();
+        var uvs = new List<Vector2>();
 
-        Vector3 origin = transform.position;
-        float currentUVY = 0.0f;
+        var origin = transform.position;
+        var currentUVY = 0.0f;
 
-        for (int i = 0; i < targets.Count - 1; i++)
-        {
-            Vector3 currentPoint = targets[i] - origin;
-            Vector3 nextPoint = targets[i + 1] - origin;
+        for (var i = 0; i < targets.Count - 1; i++) {
+            var currentPoint = targets[i] - origin;
+            var nextPoint = targets[i + 1] - origin;
 
             // Calculate the direction between points and perpendicular direction for width
-            Vector3 forward = (nextPoint - currentPoint).normalized;
-            Vector3 right = Vector3.Cross(Vector3.up, forward).normalized * trackWidth * 0.5f;
+            var forward = (nextPoint - currentPoint).normalized;
+            var right = Vector3.Cross(Vector3.up, forward).normalized * (trackWidth * 0.5f);
 
             // Create vertices for the quad centered on the points
-            Vector3 v1 = currentPoint - right;
-            Vector3 v2 = currentPoint + right;
-            Vector3 v3 = nextPoint - right;
-            Vector3 v4 = nextPoint + right;
+            var v1 = currentPoint - right;
+            var v2 = currentPoint + right;
+            var v3 = nextPoint - right;
+            var v4 = nextPoint + right;
 
             // Add vertices to the list, avoiding duplicates at segment joints
-            if (i == 0)
-            {
+            if (i == 0) {
                 // First segment, add all four vertices
                 vertices.Add(v1);
                 vertices.Add(v2);
             }
+
             vertices.Add(v3);
             vertices.Add(v4);
 
             // Create triangles for the segment
-            int baseIndex = i * 2;
+            var baseIndex = i * 2;
             triangles.Add(baseIndex);
             triangles.Add(baseIndex + 2);
             triangles.Add(baseIndex + 1);
@@ -64,11 +61,10 @@ public class TrackGenerator : MonoBehaviour
             triangles.Add(baseIndex + 2);
             triangles.Add(baseIndex + 3);
 
-            float segmentLength = Vector3.Distance(currentPoint, nextPoint);
-            float uvIncrement = segmentLength / trackWidth; // Adjust UV scaling as needed
+            var segmentLength = Vector3.Distance(currentPoint, nextPoint);
+            var uvIncrement = segmentLength / trackWidth; // Adjust UV scaling as needed
 
-            if (i == 0)
-            {
+            if (i == 0) {
                 // First segment, initial UV mapping
                 uvs.Add(new Vector2(0, currentUVY));
                 uvs.Add(new Vector2(1, currentUVY));
@@ -87,33 +83,32 @@ public class TrackGenerator : MonoBehaviour
         trackMesh.RecalculateBounds();
 
         // Attach the mesh to a MeshFilter and MeshRenderer
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        if (meshFilter == null)
-        {
+        var meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter == null) {
             meshFilter = gameObject.AddComponent<MeshFilter>();
         }
+
         meshFilter.sharedMesh = trackMesh;
 
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        if (meshRenderer == null)
-        {
+        var meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer == null) {
             meshRenderer = gameObject.AddComponent<MeshRenderer>();
         }
+
         meshRenderer.material = trackMat;
 
         // Add a MeshCollider if needed
-        MeshCollider meshCollider = GetComponent<MeshCollider>();
-        if (meshCollider == null)
-        {
+        var meshCollider = GetComponent<MeshCollider>();
+        if (meshCollider == null) {
             meshCollider = gameObject.AddComponent<MeshCollider>();
         }
+
         meshCollider.sharedMesh = trackMesh;
     }
 
 
-    void SpawnPlaneBelowTrack()
-    {
-        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+    private void SpawnPlaneBelowTrack() {
+        var plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         plane.transform.position = targets[targets.Count - 1] + Vector3.down * 0.02f;
         plane.transform.localScale = new Vector3(5, 1, 5); // Adjust size as needed
         plane.GetComponent<Renderer>().material = floorMat;
@@ -123,20 +118,18 @@ public class TrackGenerator : MonoBehaviour
         lastPlanes.Enqueue(plane);
     }
 
-    public void IncrementTrack()
-    { 
-
+    public void IncrementTrack() {
         //Debug.Log("up the track");
-        Vector3 lastPos = transform.position;
+        var lastPos = transform.position;
 
         if (targets.Count > 0) lastPos = targets[targets.Count - 1];
 
-        Vector3 newDir = -transform.right * 30.0f;
-        newDir.y += Random.Range(-1.0f,4.0f);
-        Quaternion rotation = Quaternion.AngleAxis(Random.Range(-45.0f, 45.0f), transform.up);
+        var newDir = -transform.right * 30.0f;
+        newDir.y += Random.Range(-1.0f, 4.0f);
+        var rotation = Quaternion.AngleAxis(Random.Range(-45.0f, 45.0f), transform.up);
         newDir = rotation * newDir;
 
-        Vector3 nextPos = lastPos + newDir;
+        var nextPos = lastPos + newDir;
 
         targets.Add(nextPos);
 
@@ -144,8 +137,7 @@ public class TrackGenerator : MonoBehaviour
         //SpawnPlaneBelowTrack();
     }
 
-    public void PopPlane()
-    {
+    public void PopPlane() {
         //GameObject lastPlane = lastPlanes.Dequeue();
         //Debug.Log(lastPlane.transform.position);
         //Destroy(lastPlane);
@@ -153,7 +145,7 @@ public class TrackGenerator : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start() {
-        Debug.Log("pee");
+        // Debug.Log("pee");
         lastPlanes = new Queue<GameObject>();
 
         for (var z = 0; z < 10; z++) {
