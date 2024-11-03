@@ -7,43 +7,37 @@ public class SpectatorHit : MonoBehaviour
     private bool Smacked = false;
     private float spinPower = 1.0f;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (Smacked)
-        {
+    private void OnCollisionEnter(Collision collision) {
+        if (Smacked) {
             return;
         }
 
-        if (collision.gameObject.tag == "Car" || collision.gameObject.tag == "Player")
-        {
+        if (collision.gameObject.tag == "Car") {
             // fly to space bruh
             Smacked = true;
-            Rigidbody rb = this.GetComponent<Rigidbody>();
+            var rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.None;
 
-            if (rb)
-            {
-                Vector3 v = collision.relativeVelocity;
+            if (rb) {
+                var v = collision.relativeVelocity;
                 Vector3 rand;
 
                 rand.x = Random.Range(-1.0f, 1.0f);
                 rand.y = Random.Range(-1.0f, 1.0f);
                 rand.z = Random.Range(-1.0f, 1.0f);
 
-                rb.AddForce(v * (9.2f * spinPower) * rb.mass/0.2f);
+                rb.AddForce(v * (9.2f * spinPower) * rb.mass / 0.2f);
                 rb.AddTorque(v + rand * 800.0f * rb.mass / 0.2f);
             }
 
+            // Game over
+            if (gameObject.CompareTag("Player")) {
+                RCC.I.LoseGame();
+            }
         }
     }
-    void Start()
-    {
-        spinPower = Random.Range(3.0f, 9.0f);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Start() {
+        spinPower = Random.Range(3.0f, 9.0f);
     }
 }
