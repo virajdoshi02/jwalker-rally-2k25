@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.59140193, g: 0.6529734, b: 0.52549326, a: 1}
+  m_IndirectSpecularColor: {r: 0.5916965, g: 0.65334725, b: 0.525615, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3769,6 +3769,8 @@ MonoBehaviour:
   moveForce: 10000
   jumpForce: 400
   mouseSensitivity: 300
+  cursorLocked: 1
+  isPlaying: 1
   manMesh: {fileID: 539501885}
 --- !u!54 &1343001116
 Rigidbody:

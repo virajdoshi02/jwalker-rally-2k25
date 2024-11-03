@@ -52,12 +52,17 @@ public class PlayerController : MonoBehaviour
         // Player is not on the ground anymore
         if (collision.gameObject.CompareTag("Car")) {
             isPlaying = false;
-            manMesh.SetActive(true);
-            GetComponent<MeshFilter>().mesh = null;
-            rb.constraints = RigidbodyConstraints.None;
-            cam.transform.position = cam.transform.position - cam.transform.forward * 5;
-            cam.transform.parent = transform.parent;
+            ShowDeath();
         }
+    }
+
+    public void ShowDeath()
+    {
+        manMesh.SetActive(true);
+        GetComponent<MeshFilter>().mesh = null;
+        rb.constraints = RigidbodyConstraints.None;
+        cam.transform.position = cam.transform.position - cam.transform.forward * 5;
+        cam.transform.parent = transform.parent;
     }
 
 

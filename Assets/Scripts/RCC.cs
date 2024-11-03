@@ -71,6 +71,7 @@ public class RCC : MonoBehaviour
         if (Player.transform.position.y < -10) {
             Player.GetComponent<PlayerController>().cursorLocked = false;
             Player.GetComponent<PlayerController>().isPlaying = false;
+            Player.GetComponent<PlayerController>().ShowDeath();
             LoseGame();
         }
     }
