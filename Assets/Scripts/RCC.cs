@@ -26,7 +26,7 @@ public class RCC : MonoBehaviour
         if (distToTarget < distThreshold)
         {
             carSpawner.CarSpawn(5);
-            carSpawner.CarSpawn(7);
+            //carSpawner.CarSpawn(7);
             carSpawner.CarSpawn(9);
 
             track.IncrementTrack();

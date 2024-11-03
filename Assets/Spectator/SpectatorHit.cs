@@ -14,7 +14,7 @@ public class SpectatorHit : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.tag == "Car")
+        if (collision.gameObject.tag == "Car" || collision.gameObject.tag == "Player")
         {
             // fly to space bruh
             Smacked = true;
