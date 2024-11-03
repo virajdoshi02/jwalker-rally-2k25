@@ -96,6 +96,7 @@ public class RallyController
     {
         if (CurrentTargetIdx >= Targets.Length)
         {
+            Object.Destroy(RallyCar);
             return;
         }
 

@@ -8,11 +8,15 @@ public class RCC : MonoBehaviour
     public static RCC I { get; private set; }
 
     public CarSpawner carSpawner;
-    private float distThreshold = 0.75f;
+    private float distThreshold = 10.0f;
+
+    bool start = false;
 
     public void CheckPlayerTargetDelta()
     {
         if (I.track.targets.Count == 0) return;
+        if (!start) Player.transform.position = I.track.targets[0] + Vector3.up * 2.0f;
+        start = true;
 
         Vector3 currentTarget = I.track.targets[0];
         Vector3 playerPos = Player.transform.position; // TO DO: replace with the actual player position
@@ -20,12 +24,11 @@ public class RCC : MonoBehaviour
 
         if (distToTarget < distThreshold)
         {
-            carSpawner.CarSpawn();
-            I.track.targets.RemoveAt(0); // pop
+            carSpawner.CarSpawn(5);
             track.IncrementTrack();
+            I.track.targets.RemoveAt(0); // pop
         }
     }
-
 
     private void Awake() {
         if (I == null) {
